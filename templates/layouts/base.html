@@ -1,0 +1,17 @@
+{% load static %}
+
+{% include 'layouts/header.html' %}
+
+
+
+<body>
+
+    <div class="block-content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+{% include 'layouts/scripts.html' %}
+</body>
+</html>
