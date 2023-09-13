@@ -38,27 +38,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'transportapk',
-
+    # 'django.contrib.sites',
+    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 
-    # 'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.vimeo',
-    # 'allauth.socialaccount.providers.vimeo_oauth2',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+
+    'transport',
+    'transportapk',
+    'scan',
 ]
+SITE_ID = 1
+# SITE_ID
 
 # Provider specific settings
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'APP': {
-#             'client_id': '123',
-#             'secret': '456',
-#             'key': ''
-#         }
-#     }
-# }
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    }
+}
 
 
 MIDDLEWARE = [
@@ -93,8 +99,8 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-'django.contrib.auth.backends.ModelBackend',
-'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'transport.wsgi.application'
@@ -155,3 +161,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AUTH_USER_MODEL = 'user.CustomUser'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+LOGIN_REDIRECT_URL = 'home'
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
