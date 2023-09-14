@@ -27,12 +27,17 @@ def scanner(request):
 @login_required
 def saveData(request):
     '''endpoint / view to save barcode data'''
+
+    if request.user.is_authenticated:
+#         # Get the current authenticated user.
+        _user = request.user
+
     if request.method == 'POST':
         form = BarcodeForm(request.POST)
         print(form.is_valid())
         if form.is_valid():
             barcode_data = form.save(commit=False)
-            barcode_data.user = request.user
+            barcode_data.user = _user
             barcode_data.save()
             # return render(request, 'success.html')
             redirect('home') 
@@ -43,11 +48,9 @@ def saveData(request):
 #     if request.user.is_authenticated:
 #         # Get the current authenticated user.
 #         user = request.user
-
-#         # Get the user's location using HTML5 geolocation.
 #         user_location = request.user.geolocation
 
-#         # Save the user's location in the database.
+#         # Saving the user's location in the database.
 #         UserLocation.objects.create(
 #             user=user,
 #             longitude=user_location.longitude,
