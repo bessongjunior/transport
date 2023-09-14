@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,5 +7,127 @@
 </head>
 <body>
     <h1>hello and welcome, eveything works well for scanner endpoint.</h1>
+</body>
+</html> -->
+
+{% load static %}
+{% include 'layouts/header.html' %}
+<!DOCTYPE html>
+<html>
+<!-- <head> -->
+    <!-- <title>Barcode Scanner</title> -->
+    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+<!-- </head> -->
+<body>
+
+    <main class="container mt-5">
+      
+        <div class="row align-items-md-stretch">
+            <div class="col-md-6">
+              <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>Request authorization</h2>
+                <p>If you did not accept our pop up authorization for your current location, please request another by pressing the button below.</p>
+                <button class="btn btn-outline-light" type="button">Request Authorization</button>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>Scan Now</h2>
+                <p>Scan any barcode now in only a little click.  You just have to click on the button below. No panic and just click, await an outcome below quickly. </p>
+                <button id="scan-button" class="btn btn-outline-secondary" type="button">Start Now</button>
+              </div>
+            </div>
+        </div>
+
+        <div class="bg-light rounded-3 mt-4">
+            <div class="container-fluid">
+                <div class="" id="interactive" class="viewport"></div>
+                <div class="mt-2">
+                    <p>Once the Barcode number gotten, w'll load all the data to be validated below.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- add form validation here -->
+    </main>
+
+    <form id="my-form" method="post">
+        {% csrf_token %}
+        <input type="hidden" id="hidden-barcode-field" name="{{ form.barcode_number.name }}" value="{{ form.barcode_number.value|default:'' }}">
+        <!-- <input type="hidden" id="hidden-gps-field" name="{{ form.gps_position.name }}" value="{{ form.gps_position.value|default:'' }}"> -->
+        <input type="hidden" id="hidden-lat-field" name="{{ form.latitude.name }}" value="{{ form.gps_position.value|default:'' }}">
+        <input type="hidden" id="hidden-lng-field" name="{{ form.longitude.name }}" value="{{ form.gps_position.value|default:'' }}">
+        <button id="submit-button" type="submit">Submit</button>
+    </form>
+
+    <h1 style="margin-bottom: 5rem; margin-top: 5rem;">hello and welcome, eveything works well for scanner endpoint.</h1>
+    <!-- <form id="my-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" id="hidden-barcode-field" name="barcode_number">
+        <input type="hidden" id="hidden-gps-field" name="gps_position">
+        <input type="hidden" id="hidden-lat-field" name="gps_position">
+        <input type="hidden" id="hidden-lng-field" name="gps_position">
+        <button id="submit-button" type="submit">Submit</button>
+    </form> -->
+    
+
+    <script>
+        var scanning = false;
+
+        // Initialize QuaggaJS for barcode scanning
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#interactive'),
+                constraints: {
+                    facingMode: "environment"
+                },
+            },
+            decoder: {
+                readers: ["code_128_reader"] // barcode format
+            }
+        }, function(err) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log("Quagga initialized.");
+            // Start Quagga when the "Scan Barcode" button is clicked
+            document.querySelector('#scan-button').addEventListener('click', function() {
+                if (!scanning) {
+                    Quagga.start();
+                    scanning = true;
+                }
+            });
+        });
+
+        // Event handler for barcode detection
+        Quagga.onDetected(function(result) {
+            console.log("Barcode number: " + result.codeResult.code);
+            document.querySelector('#hidden-barcode-field').value = result.codeResult.code;
+            // Stop Quagga after a barcode is detected
+            Quagga.stop();
+            scanning = false;
+        });
+
+        // Get GPS position
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log("Latitude: " + position.coords.latitude);
+            console.log("Longitude: " + position.coords.longitude);
+            // document.querySelector('#hidden-gps-field').value = position.coords.latitude + ', ' + position.coords.longitude; 
+            document.querySelector('#hidden-lat-field').value = position.coords.latitude;
+            document.querySelector('#hidden-lng-field').value = position.coords.longitude;
+        });
+
+        // Insert data into form and submit
+        document.querySelector('#submit-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#my-form').submit();
+        });
+    </script>
 </body>
 </html>

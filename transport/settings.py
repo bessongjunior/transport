@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
 
     'transport',
-    'transportapk',
+    # 'transportapk',
+    'widget_tweaks',
     'scan',
 ]
 SITE_ID = 1
@@ -162,9 +163,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'user.CustomUser'
+# AUTH_USER_MODEL = ''
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 LOGIN_REDIRECT_URL = 'home'
+# LOGIN_REDIRECT_URL = '/home'
 
 ACCOUNT_EMAIL_REQUIRED = True
 
