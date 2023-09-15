@@ -1,1 +1,72 @@
 {% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark text-white">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white mx-4" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse ms-auto justify-content-center" id="navbarSupportedContent">
+
+            <ul class="navbar-nav  mb-lg-0 col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li nav-item><a href="#" class="nav-link px-2 active text-white" aria-current="page">Home</a></li>
+                <li nav-item><a href="#" class="nav-link px-2 text-white">About</a></li>
+                <li nav-item><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                <li nav-item><a href="#" class="nav-link px-2 text-white">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li nav-item><a href="{% url 'scanner' %}" class="nav-link px-2 text-white">Scan Now</a></li>
+                {% endif %}
+
+            </ul>
+            <!-- <div class="ms-5"> -->
+                {% if user.is_authenticated %}
+                <div class="col-md-3 text-end">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mt-2">{{ request.user.username }}</h5>
+                        </div>
+                        <div class="col"><button type="button" class="btn btn-outline-light">Sign Out</button></div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-md-3 text-end">
+                    <button type="button" class="btn btn-outline-light me-2">Login</button>
+                    <button type="button" class="btn btn-warning">Sign-up</button>
+                </div>
+                {% endif %}
+            <!-- </div> -->
+        </div>
+    </div>
+</nav>
+
+
+<!-- <div class="">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-dark text-white">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none ms-2">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+  
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Contact</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+        </ul>
+        {% if user.is_authenticated %}
+        <div class="col-md-3 text-end me-4">
+            <div class="row">
+                <div class="col"><h5 class="mt-2">user.usernane</h5></div>
+            <div class="col"><button type="button" class="btn btn-outline-light">Sign Out</button></div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-md-3 text-end me-2">
+          <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" class="btn btn-warning">Sign-up</button>
+        </div>
+        {% endif %}
+    </header>
+</div> -->

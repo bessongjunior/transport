@@ -23,8 +23,6 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    
     path('scan/', include('scan.urls')),
     # path('transport/',include('transportapk.urls')),
-    
 ]

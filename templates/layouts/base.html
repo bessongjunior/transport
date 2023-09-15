@@ -2,16 +2,22 @@
 
 {% include 'layouts/header.html' %}
 
+{% include 'layouts/nav.html' %}
 
+    <body>
 
-<body>
+        <main class="block-content">
 
-    <div class="block-content">
-        {% block content %}
+            {% block content %}
 
-        {% endblock %}
-    </div>
+            {% endblock %}
+            
+        </main>
 
-{% include 'layouts/scripts.html' %}
-</body>
+        {% include 'layouts/footer.html' %}
+
+        {% include 'layouts/scripts.html' %}
+
+    </body>
+
 </html>

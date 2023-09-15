@@ -1,26 +1,17 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>hello and welcome, eveything works well for scanner endpoint.</h1>
-</body>
-</html> -->
+{% extends 'layouts/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
 
 {% load static %}
-{% include 'layouts/header.html' %}
-<!DOCTYPE html>
-<html>
-<!-- <head> -->
-    <!-- <title>Barcode Scanner</title> -->
-    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
-<!-- </head> -->
-<body>
 
-    <main class="container mt-5">
+
+    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+
+<!-- Scan page view -->
+    <div class="container mt-5">
       
         <div class="row align-items-md-stretch">
             <div class="col-md-6">
@@ -51,7 +42,7 @@
 
 
         <!-- add form validation here -->
-    </main>
+    </div>
 
     <form id="my-form" method="post">
         {% csrf_token %}
@@ -98,6 +89,7 @@
             console.log("Quagga initialized.");
             // Start Quagga when the "Scan Barcode" button is clicked
             document.querySelector('#scan-button').addEventListener('click', function() {
+                console.log('Scanning!');
                 if (!scanning) {
                     Quagga.start();
                     scanning = true;
@@ -129,5 +121,7 @@
             document.querySelector('#my-form').submit();
         });
     </script>
-</body>
-</html>
+
+
+
+{% endblock %}

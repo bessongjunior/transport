@@ -49,9 +49,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
 
     'transport',
+    'scan',
     # 'transportapk',
     'widget_tweaks',
-    'scan',
+    'crispy_forms',
+    "crispy_bootstrap5",
+    
 ]
 SITE_ID = 1
 # SITE_ID
@@ -122,18 +125,18 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
 
@@ -165,8 +168,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTH_USER_MODEL = ''
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-LOGIN_REDIRECT_URL = 'home'
-# LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT = '/'
+ACCOUNT_lOGOUT_REDIRECT= '/'
 
 ACCOUNT_EMAIL_REQUIRED = True
 
@@ -182,3 +186,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
+
+# ALLOWED_HOSTS = ['192.168.43.172']
+# ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
