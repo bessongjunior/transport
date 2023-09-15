@@ -31,16 +31,16 @@
             </div>
         </div>
 
-        <div class="bg-light rounded-3 mt-4">
-            <div class="container-fluid">
-                <div class="" id="interactive" class="viewport"></div>
-                <div class="mt-2">
-                    <p>Once the Barcode number gotten, w'll load all the data to be validated below.</p>
-                </div>
-            </div>
+        
+    </div>
+
+    <div class="">
+        <div class="mx-5 my-4">
+            <div class="" id="interactive" class="viewport"></div>
         </div>
-
-
+        <div class=" mx-5 bg-light mt-2">
+            <p>Once the Barcode number gotten, w'll load all the data to be validated below.</p>
+        </div>
         <!-- add form validation here -->
     </div>
 
@@ -50,10 +50,8 @@
         <!-- <input type="hidden" id="hidden-gps-field" name="{{ form.gps_position.name }}" value="{{ form.gps_position.value|default:'' }}"> -->
         <input type="hidden" id="hidden-lat-field" name="{{ form.latitude.name }}" value="{{ form.gps_position.value|default:'' }}">
         <input type="hidden" id="hidden-lng-field" name="{{ form.longitude.name }}" value="{{ form.gps_position.value|default:'' }}">
-        <button id="submit-button" type="submit">Submit</button>
+        <button id="submit-button" type="submit" class="btn btn-outline-dark w-100 mx-4">Submit</button>
     </form>
-
-    <h1 style="margin-bottom: 5rem; margin-top: 5rem;">hello and welcome, eveything works well for scanner endpoint.</h1>
     <!-- <form id="my-form" method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -75,35 +73,82 @@
                 type: "LiveStream",
                 target: document.querySelector('#interactive'),
                 constraints: {
-                    facingMode: "environment"
+                    facingMode: "environment",
+                    width: 1115,
+                    height: 400
                 },
             },
             decoder: {
-                readers: ["code_128_reader"] // barcode format
+                readers: [
+                    "code_128_reader",
+                    "ean_reader",
+                    "ean_8_reader",
+                    "code_39_reader",
+                    "code_39_vin_reader",
+                    "codabar_reader",
+                    "upc_reader",
+                    "upc_e_reader",
+                    "i2of5_reader"
+            ], // barcode format
+            // debug: {
+            //             showCanvas: true,
+            //             showPatches: true,
+            //             showFoundPatches: true,
+            //             showSkeleton: true,
+            //             showLabels: true,
+            //             showPatchLabels: true,
+            //             showRemainingPatchLabels: true,
+            //             boxFromPatches: {
+            //                 showTransformed: true,
+            //                 showTransformedBox: true,
+            //                 showBB: true
+            //             }
+            //         }
+            //     },
             }
         }, function(err) {
             if (err) {
                 console.log(err);
                 return;
             }
-            console.log("Quagga initialized.");
+            console.log("Quagga initialized. . Ready to start");
             // Start Quagga when the "Scan Barcode" button is clicked
             document.querySelector('#scan-button').addEventListener('click', function() {
                 console.log('Scanning!');
                 if (!scanning) {
                     Quagga.start();
                     scanning = true;
+                    // Draw box on camera start
+                    // var canvas = document.getElementById('canvas');
+                    // var context = canvas.getContext('2d');
+                    // context.beginPath();
+                    // context.rect(20, 20, 760, 760); // Adjust these values to change the position and size of the box
+                    // context.lineWidth = 3;
+                    // context.strokeStyle = 'red';
+                    // context.stroke();
                 }
             });
         });
 
         // Event handler for barcode detection
         Quagga.onDetected(function(result) {
+            // console.log("Barcode number: " + result.codeResult.code);
+            // document.querySelector('#hidden-barcode-field').value = result.codeResult.code;
+            // // Stop Quagga after a barcode is detected
+            // Quagga.stop();
+            // scanning = false;
             console.log("Barcode number: " + result.codeResult.code);
             document.querySelector('#hidden-barcode-field').value = result.codeResult.code;
-            // Stop Quagga after a barcode is detected
-            Quagga.stop();
-            scanning = false;
+            console.log("Barcode: " + result.codeResult);
+
+            // Draw box for detected barcode
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            context.beginPath();
+            context.rect(result.line[0].x, result.line[0].y, result.line[2].x - result.line[0].x, result.line[2].y - result.line[0].y);
+            context.lineWidth = 3;
+            context.strokeStyle = 'green';
+            context.stroke();
         });
 
         // Get GPS position
@@ -120,6 +165,16 @@
             e.preventDefault();
             document.querySelector('#my-form').submit();
         });
+
+        document.getElementById("btn-stop-start").addEventListener("click", function () {
+            if (scanning) {
+                Quagga.stop();
+            } else {
+                // add start logic here!!
+                // startScanner();
+                
+            }
+        }, false);
     </script>
 
 

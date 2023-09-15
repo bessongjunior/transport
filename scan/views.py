@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # from django_barcode.views import BarcodeScannerView
 from .forms import BarcodeForm
 
-# @login_required
+@login_required
 def scanner(request):
     '''scanner endpoints/ page to scan and display data'''
 
@@ -43,6 +43,10 @@ def saveData(request):
             redirect('home') 
     else:
         redirect('scanner')
+
+@login_required
+def success(request):
+    return render(request, 'scan/success.html')
 
 # def get_user_location(request):
 #     if request.user.is_authenticated:

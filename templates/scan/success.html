@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Ler Barcode </title>
+</head>
+
+<body>
+
+    <div id="resultado"></div>
+    <div id="camera"></div>
+
+    <script src="{% static 'assets/js/quagga.min.js' %}"></script>
+
+    <script>
+        var scanning = false;
+
+        // Initialize QuaggaJS for barcode scanning
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#interactive'),
+                constraints: {
+                    facingMode: "environment"
+                },
+            },
+            decoder: {
+                readers: ["code_128_reader"] // barcode format
+            }
+        }, function(err) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log("Quagga initialized.");
+            // Start Quagga when the "Scan Barcode" button is clicked
+            document.querySelector('#scan-button').addEventListener('click', function() {
+                console.log('Scanning!');
+                if (!scanning) {
+                    Quagga.start();
+                    scanning = true;
+                }
+            });
+        });
+
+        // Event handler for barcode detection
+        Quagga.onDetected(function(result) {
+            console.log("Barcode number: " + result.codeResult.code);
+            document.querySelector('#hidden-barcode-field').value = result.codeResult.code;
+            // Stop Quagga after a barcode is detected
+            Quagga.stop();
+            scanning = false;
+        });
+
+        // Get GPS position
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log("Latitude: " + position.coords.latitude);
+            console.log("Longitude: " + position.coords.longitude);
+            // document.querySelector('#hidden-gps-field').value = position.coords.latitude + ', ' + position.coords.longitude; 
+            document.querySelector('#hidden-lat-field').value = position.coords.latitude;
+            document.querySelector('#hidden-lng-field').value = position.coords.longitude;
+        });
+
+        // Insert data into form and submit
+        document.querySelector('#submit-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#my-form').submit();
+        });
+    </script>
+
+    <!-- <script>
+
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#camera')    // Or '#yourElement' (optional)
+            },
+            decoder: {
+                readers: ["code_128_reader"]
+            }
+        }, function (err) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            console.log("Initialization finished. Ready to start");
+            Quagga.start();
+        });
+
+        Quagga.onDetected(function (data) {
+            console.log(data.codeResult.code);
+            document.querySelector('#resultado').innerText = data.codeResult.code;
+        });
+
+    </script> -->
+
+</body>
+
+</html>

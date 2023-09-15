@@ -4,8 +4,25 @@
 
 
 <!-- Block content -->
+
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 <!-- home page view -->
+<style>
+  .icon-link {
+      display: inline-flex;
+      align-items: center;
+    }
+    .icon-link > .bi {
+      margin-top: .125rem;
+      margin-left: .125rem;
+      transition: transform .25s ease-in-out;
+      fill: currentColor;
+    }
+    .icon-link:hover > .bi {
+      transform: translate(.25rem);
+    }
+</style>
 
 <!-- home -->
 <div id="hero" class="d-flex align-items-center py-5">
@@ -20,7 +37,7 @@
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img">
-          <img src="{% static 'assets/imag/hero-img.png' %}" class="img-fluid animated" alt="">
+          <img src="{% static 'assets/images/hero-img.png' %}" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
@@ -56,36 +73,39 @@
     </div>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
       <div class="feature col">
-        <div class="feature-icon bg-primary bg-gradient">
+        <div class="feature-icon bg-dark bg-gradient">
           <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
         </div>
         <h2>Featured title</h2>
         <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-        <a href="#" class="icon-link">
-          Call to action
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+        <a href="#" class=" text-dark">
+          Learn more
+          <!-- <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg> -->
+          <i class="bi bi-chevron-right"></i>
         </a>
       </div>
       <div class="feature col">
-        <div class="feature-icon bg-primary bg-gradient">
+        <div class="feature-icon bg-dark bg-gradient">
           <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
         </div>
         <h2>Featured title</h2>
         <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-        <a href="#" class="icon-link">
-          Call to action
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+        <a href="#" class=" text-dark">
+          Learn more
+          <!-- <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg> -->
+          <i class="bi bi-chevron-right"></i>
         </a>
       </div>
       <div class="feature col">
-        <div class="feature-icon bg-primary bg-gradient">
+        <div class="feature-icon bg-dark bg-gradient">
           <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
         </div>
         <h2>Featured title</h2>
         <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-        <a href="#" class="icon-link">
-          Call to action
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+        <a href="#" class=" text-dark">
+          Learn more
+          <!-- <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg> -->
+          <i class="bi bi-chevron-right"></i>
         </a>
       </div>
     </div>

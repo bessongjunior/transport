@@ -27,13 +27,13 @@
                         <div class="col">
                             <h5 class="mt-2">{{ request.user.username }}</h5>
                         </div>
-                        <div class="col"><button type="button" class="btn btn-outline-light">Sign Out</button></div>
+                        <div class="col"><a href="{% url 'account_logout' %}" type="button" class="btn btn-outline-light">Sign Out</a></div>
                     </div>
                 </div>
                 {% else %}
                 <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
+                    <a href="{% url 'account_login' %}" type="button" class="btn btn-outline-light me-2">Sign In</a>
+                    <a href="{% url 'account_signup' %}" type="button" class="btn btn-warning">Sign Up</a>
                 </div>
                 {% endif %}
             <!-- </div> -->
