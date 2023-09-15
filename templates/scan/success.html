@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--  -->
 {% load static %}
 
-<head>
+{% include 'layouts/header.html' %}
+
+<!-- <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Ler Barcode </title>
-</head>
+</head> -->
 
 <body>
-
+<h1>hello</h1>
     <div id="resultado"></div>
     <div id="camera"></div>
 
-    <script src="{% static 'assets/js/quagga.min.js' %}"></script>
-
-    <script>
+    <script src="{% static 'assets/js/quagga.js' %}"></script>
+    <!-- <script>
         var scanning = false;
 
         // Initialize QuaggaJS for barcode scanning
@@ -71,9 +71,9 @@
             e.preventDefault();
             document.querySelector('#my-form').submit();
         });
-    </script>
+    </script> -->
 
-    <!-- <script>
+    <script>
 
         Quagga.init({
             inputStream: {
@@ -92,13 +92,14 @@
             console.log("Initialization finished. Ready to start");
             Quagga.start();
         });
-
+        console.log('found, reading data!');
         Quagga.onDetected(function (data) {
+            console.log('found, reading data!')
             console.log(data.codeResult.code);
             document.querySelector('#resultado').innerText = data.codeResult.code;
         });
 
-    </script> -->
+    </script>
 
 </body>
 
