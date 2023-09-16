@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'transport',
     'scan',
     # 'transportapk',
-    'widget_tweaks',
+    # 'widget_tweaks',
     'crispy_forms',
     "crispy_bootstrap5",
     
